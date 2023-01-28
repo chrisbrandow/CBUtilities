@@ -19,3 +19,12 @@ extension String {
         }
     }
 }
+
+extension Optional where Wrapped: Collection {
+    public var otf_isEmptyOrNil: Bool {
+        switch self {
+        case .some(let collection): return collection.isEmpty
+        default: return true
+        }
+    }
+}
