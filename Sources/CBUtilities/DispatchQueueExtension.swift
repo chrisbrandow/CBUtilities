@@ -9,9 +9,9 @@ import Foundation
 
 extension DispatchQueue {
 
-    public func cb_perform(block: @escaping (() -> Void), withDelay delay: TimeInterval) {
+    public func cb_perform(after  delay: TimeInterval, block: @escaping (() -> Void)) {
         let dispatchTime = DispatchTime.now() + delay
         self.asyncAfter(deadline: dispatchTime, execute: block)
     }
-    
+
 }
