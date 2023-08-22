@@ -33,3 +33,17 @@ class DebuggingGridView: UIView {
 
     }
 }
+
+extension UIAlertController {
+
+    /// the action handlers are called after this method dismisses the alert controller
+    static func yesNoAlert(_ title: String, message: String, yes: @escaping ((UIAlertAction) -> Void), no: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { action in controller.dismiss(animated: true) { yes(action) } }
+        let noAction = UIAlertAction(title: "No", style: .default) { action in controller.dismiss(animated: true) { no?(action) } }
+        controller.addAction(noAction)
+        controller.addAction(yesAction)
+        return controller
+    }
+}
+
