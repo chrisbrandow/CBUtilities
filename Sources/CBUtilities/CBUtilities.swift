@@ -58,9 +58,9 @@ extension UIAlertController {
 
 
 public struct StoryboardID {
-    public enum Error: Swift.Error {
-        case notFound(StoryboardID)
-    }
+//    public enum Error: Swift.Error {
+//        case notFound(StoryboardID)
+//    }
 
     public let name: String
     public let instanceIdentifier: String?
@@ -78,16 +78,16 @@ public protocol StoryBoardInstantiatable: UIViewController {
     static func instantiate() -> Self?
 }
 
-extension StoryboardID.Error: ErrorReportable {
-    public var reportingProperties: [String: String?]? {
-        switch self {
-        case let .notFound(id):
-            return ["name": id.name,
-                    "instanceIdentifier": id.instanceIdentifier,
-                    "bundle": id.bundle?.name]
-        }
-    }
-}
+//extension StoryboardID.Error: ErrorReportable {
+//    public var reportingProperties: [String: String?]? {
+//        switch self {
+//        case let .notFound(id):
+//            return ["name": id.name,
+//                    "instanceIdentifier": id.instanceIdentifier,
+//                    "bundle": id.bundle?.name]
+//        }
+//    }
+//}
 
 extension StoryBoardInstantiatable {
 
@@ -118,41 +118,41 @@ extension StoryBoardInstantiatable {
 public extension StoryboardID {
     var storyboard: UIStoryboard { UIStoryboard(name: self.name, bundle: self.bundle) }
 
-    /// Instantiates an instance of the view controller referenced by this storyboard ID, delegating initialization to
-    /// the provided closure.
-    ///
-    /// This allows for classes instantiated by UIStoryboard to have custom initizers i.e. to provide required properties.
-    ///
-    /// In this example, we can make `foo` a non-optional property:
-    ///
-    /// ```
-    ///    static func instantiate(foo: Int) -> Self? {
-    ///        self.storyboardID.instantiate { coder in
-    ///            self.init(coder: coder, foo: foo)
-    ///        }
-    ///    }
-    ///
-    ///    required init?(coder: NSCoder, foo: Int) {
-    ///        self.foo = foo
-    ///        super.init(coder: coder)
-    ///    }
-    /// ```
-    @MainActor
-    func instantiate<ViewController>(creator: @escaping (NSCoder) -> ViewController?) -> ViewController? where ViewController: UIViewController {
-
-        let maybeVC: ViewController?
-        if let identifier = self.instanceIdentifier {
-            maybeVC = self.storyboard.instantiateViewController(identifier: identifier, creator: creator)
-        } else {
-            maybeVC = self.storyboard.instantiateInitialViewController(creator: creator)
-        }
-
-        guard let vc = maybeVC else {
-            let error = StoryboardID.Error.notFound(self)
-            ServiceLocator.shared.errorService?.track(error)
-            return nil
-        }
-
-        return vc
-    }
+//    /// Instantiates an instance of the view controller referenced by this storyboard ID, delegating initialization to
+//    /// the provided closure.
+//    ///
+//    /// This allows for classes instantiated by UIStoryboard to have custom initizers i.e. to provide required properties.
+//    ///
+//    /// In this example, we can make `foo` a non-optional property:
+//    ///
+//    /// ```
+//    ///    static func instantiate(foo: Int) -> Self? {
+//    ///        self.storyboardID.instantiate { coder in
+//    ///            self.init(coder: coder, foo: foo)
+//    ///        }
+//    ///    }
+//    ///
+//    ///    required init?(coder: NSCoder, foo: Int) {
+//    ///        self.foo = foo
+//    ///        super.init(coder: coder)
+//    ///    }
+//    /// ```
+//    @MainActor
+//    func instantiate<ViewController>(creator: @escaping (NSCoder) -> ViewController?) -> ViewController? where ViewController: UIViewController {
+//
+//        let maybeVC: ViewController?
+//        if let identifier = self.instanceIdentifier {
+//            maybeVC = self.storyboard.instantiateViewController(identifier: identifier, creator: creator)
+//        } else {
+//            maybeVC = self.storyboard.instantiateInitialViewController(creator: creator)
+//        }
+//
+//        guard let vc = maybeVC else {
+//            let error = StoryboardID.Error.notFound(self)
+//            ServiceLocator.shared.errorService?.track(error)
+//            return nil
+//        }
+//
+//        return vc
+//    }
 }
