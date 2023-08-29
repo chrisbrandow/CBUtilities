@@ -45,5 +45,14 @@ extension UIAlertController {
         controller.addAction(yesAction)
         return controller
     }
+
+    public static func equalChoiceAlert(_ title: String, message: String, first: String, second: String? = nil, firstBlock: @escaping ((UIAlertAction) -> Void), secondBlock: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: first, style: .destructive) { action in controller.dismiss(animated: true) { firstBlock(action) } }
+        let noAction = UIAlertAction(title: second ?? "OK", style: .default) { action in controller.dismiss(animated: true) { secondBlock?(action) } }
+        controller.addAction(noAction)
+        controller.addAction(yesAction)
+        return controller
+    }
 }
 
