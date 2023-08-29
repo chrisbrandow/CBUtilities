@@ -110,7 +110,7 @@ extension StoryBoardInstantiatable {
 
     public static func instantiateWithNavigationController() -> (navigationController: UINavigationController, viewController: Self)? {
         guard let controller = Self.instantiate() else { return nil}
-        let navigationController = OTNavigationController(rootViewController: controller)
+        let navigationController = UINavigationController(rootViewController: controller)
         return (navigationController, controller)
     }
 }
