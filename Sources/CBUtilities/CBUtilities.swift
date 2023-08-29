@@ -101,7 +101,7 @@ extension StoryBoardInstantiatable {
         }
 
         guard let result = vc as? Self else {
-            ServiceLocator.shared.errorService?.track(StoryboardID.Error.notFound(self.storyboardID))
+//            ServiceLocator.shared.errorService?.track(StoryboardID.Error.notFound(self.storyboardID))
             return nil
         }
 
