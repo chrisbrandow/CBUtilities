@@ -9,6 +9,8 @@ import UIKit
 
 
 public extension UIColor {
+
+    func tempthing() {} 
     convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 
