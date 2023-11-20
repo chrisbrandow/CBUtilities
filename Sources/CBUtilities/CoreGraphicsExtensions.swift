@@ -16,3 +16,9 @@ public extension UIBezierPath {
         self.addLine(to: CGPoint(x: x, y: y))
     }
 }
+
+public extension CGSize {
+    init(squareEdge: CGFloat) {
+        self.init(width: squareEdge, height: squareEdge)
+    }
+}
