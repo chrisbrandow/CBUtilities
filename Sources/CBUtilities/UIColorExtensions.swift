@@ -16,10 +16,9 @@ public extension UIColor {
         guard hex.hasPrefix("#")
         else { return nil }
         let start = hex.index(hex.startIndex, offsetBy: 1)
-        let hexColor = String(hex[start...])
+        var hexColor = String(hex[start...]) + (hex.count < 8 ? "FF" : "")
 
-        if hexColor.count == 6
-            || hexColor.count == 8
+        if hexColor.count == 8
         {
             let scanner = Scanner(string: hexColor)
             var hexNumber: UInt64 = 0
@@ -37,8 +36,10 @@ public extension UIColor {
             }
             a = CGFloat(hexNumber & 0x000000ff) / 255
             self.init(red: r, green: g, blue: b, alpha: a)
+        } else {
+            return nil
         }
 
-        return nil
     }
 }
+
